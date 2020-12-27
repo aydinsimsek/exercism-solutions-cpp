@@ -15,7 +15,7 @@ int jumpingOnClouds(vector<int> c) {
             count++;
             i += 2;
         }
-        else if(c[i+1] != 1)
+        else
         {
             count++;
             i++;
