@@ -31,10 +31,7 @@ int main() {
                         s1.pop();
                     }
                 }
-                if(!s2.empty())
-                {
-                    s2.pop();
-                }
+                s2.pop();
                 break;
             case 3:
                 if(s2.empty())
