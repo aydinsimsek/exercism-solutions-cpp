@@ -16,13 +16,13 @@ vector<int> quickSort(vector<int> arr) {
         {
             left.push_back(arr[i]);        
         }
-        else if(arr[i] == pivot)
-        {
-            equal.push_back(arr[i]);
-        }
         else if(arr[i] > pivot)
         {
-            right.push_back(arr[i]);    
+            right.push_back(arr[i]);
+        }
+        else
+        {
+            equal.push_back(arr[i]);    
         }
     }
     result.insert(result.end(), left.begin(), left.end());
