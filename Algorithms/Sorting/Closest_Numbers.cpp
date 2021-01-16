@@ -4,10 +4,12 @@ using namespace std;
 
 vector<string> split_string(string);
 
+#define MAX_DIFFERENCE 2 * pow(10, 7)
+
 vector<int> closestNumbers(vector<int> arr) {
     vector<int> result;
     sort(arr.begin(), arr.end());
-    int difference = 2 * pow(10, 7);
+    int difference = MAX_DIFFERENCE;
     for(int i = 0; i < arr.size()-1; i++)
     {
         if(abs(arr[i]-arr[i+1]) <= difference)
