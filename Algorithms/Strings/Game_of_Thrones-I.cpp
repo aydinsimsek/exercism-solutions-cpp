@@ -20,7 +20,7 @@ string gameOfThrones(string s) {
                 {
                     return "NO";
                 } 
-                else if(s.length() % 2 != 0 && !done)
+                else
                 {
                     done = true;
                 }
