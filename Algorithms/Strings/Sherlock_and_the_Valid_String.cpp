@@ -16,10 +16,6 @@ string isValid(string s) {
         }
     }
     sort(vec.begin(), vec.end());
-    for(int i = 0; i < vec.size(); i++)
-    {
-        cout << vec[i] << " ";
-    }
     int last = vec.size()-1;
     if(vec[0] == vec[last] || ((vec[last]- vec[0] == 1) && (vec[last] == vec[1] || vec[0] == vec[last-1])) || (vec[0] == 1 && (vec[1] == vec[last])))
     {
