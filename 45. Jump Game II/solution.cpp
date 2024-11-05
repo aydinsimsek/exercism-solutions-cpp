@@ -19,6 +19,10 @@ class Solution
                 {
                     maxDest = i + nums[i];
                 }
+                if(maxDest >= target)
+                {
+                    return ++count;
+                }
                 if(i == currDest)
                 {
                     count++;
