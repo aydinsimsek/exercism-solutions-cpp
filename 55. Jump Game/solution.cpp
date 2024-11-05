@@ -6,8 +6,12 @@ class Solution
         bool canJump(std::vector<int>& nums) 
         {
             int target = nums.size()-1;
+            if(target == 0)
+            {
+                return true;
+            }
             int maxDest = 0;
-            for(int i = 0; i <= target; i++)
+            for(int i = 0; i < target; i++)
             {
                 if(i > maxDest)
                 {
