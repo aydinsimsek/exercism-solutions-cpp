@@ -6,48 +6,42 @@ class Solution
         int trap(std::vector<int>& height)
         {
             int res = 0;
-            int currIdx = 0;
-            while(currIdx < height.size()-1)
+            std::vector<int> leftIdx(height.size());
+            leftIdx[0] = height[0];
+            std::vector<int> rightIdx(height.size());
+            rightIdx[height.size()-1] = height[height.size()-1];
+            for(int i = 1; i < height.size(); i++)
             {
-                if(height[currIdx] == 0)
+                if(height[i] > leftIdx[i-1])
                 {
-                    currIdx++;
-                    continue;
+                    leftIdx[i] = height[i];
                 }
-                int rightIdx = -1;
-                int currMax = 0;
-                for(int i = currIdx+1; i < height.size(); i++)
-                {   
-                    if(height[i] > currMax)
-                    {
-                        currMax = height[i];
-                        rightIdx = i;
-                        if(currMax > height[currIdx])
-                        {
-                            break;
-                        }
-                    }
-                }
-                if(rightIdx == -1)
+                else
                 {
-                    return res;
+                    leftIdx[i] = leftIdx[i-1];
                 }
-                for(int i = currIdx+1; i < rightIdx; i++)
+            }
+            for(int i = height.size()-2; i >= 0; i--)
+            {
+                if(height[i] > rightIdx[i+1])
                 {
-                    res -= height[i];
+                    rightIdx[i] = height[i];
                 }
-                int _height;
-                if(height[currIdx] < height[rightIdx])
+                else
                 {
-                    _height = height[currIdx];
+                    rightIdx[i] = rightIdx[i+1];
                 }
-                else 
+            }
+            for(int i = 0; i < height.size(); i++)
+            {
+                if(leftIdx[i] < rightIdx[i])
                 {
-                    _height = height[rightIdx];
+                    res += leftIdx[i] - height[i];
                 }
-                int _width = rightIdx - currIdx - 1;
-                res += _height * _width;
-                currIdx = rightIdx;
+                else
+                {
+                    res += rightIdx[i] - height[i];
+                }
             }
             return res;
         }
