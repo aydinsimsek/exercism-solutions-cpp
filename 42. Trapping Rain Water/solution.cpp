@@ -30,8 +30,7 @@ class Solution
                 }
                 if(rightIdx == -1)
                 {
-                    currIdx++;
-                    continue;
+                    return res;
                 }
                 for(int i = currIdx+1; i < rightIdx; i++)
                 {
