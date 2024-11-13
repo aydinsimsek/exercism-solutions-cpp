@@ -9,9 +9,9 @@ class Solution
             {
                 return 1.0;
             }
-            else if(x == -1.0)
+            else if(x == -1.0 || x == 0)
             {
-                return -1.0;
+                return x;
             }
             double res = 1.0;
             long long int tmp;
