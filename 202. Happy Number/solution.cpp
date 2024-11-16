@@ -1,27 +1,26 @@
-#include <unordered_map>
-
 class Solution
 {
+    private: 
+        int squareOfDigits(int num)
+        {
+            int sqr = 0;
+            while(num > 0)
+            {
+                sqr += (num % 10) * (num % 10);
+                num /= 10;
+            }
+            return sqr;
+        }
     public:
         bool isHappy(int n)
         {
-            int sqr = 0;
-            std::unordered_map<int, int> umap;
-            while(n != 1)
+            int slowPtr = n;
+            int fastPtr = squareOfDigits(n);
+            while(fastPtr != 1 && slowPtr != fastPtr)
             {
-                while(n > 0)
-                {
-                    sqr += (n % 10) * (n % 10);
-                    n /= 10;
-                }
-                if(umap[sqr] != 0)
-                {
-                    return false;
-                }
-                umap[sqr]++;
-                n = sqr;
-                sqr = 0;
+                slowPtr = squareOfDigits(slowPtr);
+                fastPtr = squareOfDigits(squareOfDigits(fastPtr));
             }
-            return true;
+            return fastPtr == 1;
         }
 };
