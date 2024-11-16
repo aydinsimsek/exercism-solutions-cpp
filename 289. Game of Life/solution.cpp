@@ -2,7 +2,7 @@
 
 class Solution
 {
-    public:
+    private:
         void padZeros(std::vector<std::vector<int>>& board)
         {
             int numRows = board.size();
@@ -29,6 +29,7 @@ class Solution
             }
         }
 
+    public:
         void gameOfLife(std::vector<std::vector<int>>& board)
         {
             padZeros(board);
