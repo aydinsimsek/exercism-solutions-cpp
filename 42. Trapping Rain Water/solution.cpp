@@ -6,48 +6,43 @@ class Solution
         int trap(std::vector<int>& height)
         {
             int res = 0;
-            int currIdx = 0;
-            while(currIdx < height.size()-1)
+            std::vector<int> maxHeightOnLeft(height.size());
+            maxHeightOnLeft[0] = height[0];
+            std::vector<int> maxHeightOnRight(height.size());
+            maxHeightOnRight[height.size()-1] = height[height.size()-1];
+
+            for(int i = 1; i < height.size(); i++)
             {
-                if(height[currIdx] == 0)
+                if(height[i] > maxHeightOnLeft[i-1])
                 {
-                    currIdx++;
-                    continue;
+                    maxHeightOnLeft[i] = height[i];
                 }
-                int rightIdx = -1;
-                int currMax = 0;
-                for(int i = currIdx+1; i < height.size(); i++)
-                {   
-                    if(height[i] > currMax)
-                    {
-                        currMax = height[i];
-                        rightIdx = i;
-                        if(currMax > height[currIdx])
-                        {
-                            break;
-                        }
-                    }
-                }
-                if(rightIdx == -1)
+                else
                 {
-                    return res;
+                    maxHeightOnLeft[i] = maxHeightOnLeft[i-1];
                 }
-                for(int i = currIdx+1; i < rightIdx; i++)
+            }
+            for(int i = height.size()-2; i >= 0; i--)
+            {
+                if(height[i] > maxHeightOnRight[i+1])
                 {
-                    res -= height[i];
+                    maxHeightOnRight[i] = height[i];
                 }
-                int _height;
-                if(height[currIdx] < height[rightIdx])
+                else
                 {
-                    _height = height[currIdx];
+                    maxHeightOnRight[i] = maxHeightOnRight[i+1];
                 }
-                else 
+            }
+            for(int i = 0; i < height.size(); i++)
+            {
+                if(maxHeightOnLeft[i] < maxHeightOnRight[i])
                 {
-                    _height = height[rightIdx];
+                    res += maxHeightOnLeft[i] - height[i];
                 }
-                int _width = rightIdx - currIdx - 1;
-                res += _height * _width;
-                currIdx = rightIdx;
+                else
+                {
+                    res += maxHeightOnRight[i] - height[i];
+                }
             }
             return res;
         }
