@@ -1,5 +1,5 @@
 #include <string>
-#include <unordered_map>
+#include <algorithm>
 
 class Solution
 {
@@ -10,19 +10,13 @@ class Solution
             {
                 return false;
             }
-            std::unordered_map<char, int> umap;
+            int letters[26] = {0};
             for(int i = 0; i < s.length(); i++)
             {
-                umap[s[i]]++;
-                umap[t[i]]--;
+                letters[s[i] - 'a']++;
+                letters[t[i] - 'a']--;
             }
-            for(auto it = umap.begin(); it != umap.end(); it++)
-            {
-                if(it->second != 0)
-                {
-                    return false;
-                }
-            }
-            return true;
+            std::sort(letters, letters + 26);
+            return letters[0] == 0 && letters[25] == 0;
         }
 };
