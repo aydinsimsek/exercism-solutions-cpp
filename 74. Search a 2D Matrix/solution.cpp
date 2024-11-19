@@ -15,44 +15,21 @@ class Solution
                 }
                 return false;
             }
-            
-            int firstRowIdx = 0;
-            int lastRowIdx = numRows - 1;
-            int rowIdx;
-
-            while(firstRowIdx <= lastRowIdx)
-            {
-                if(target <= matrix[firstRowIdx][numCols-1])
-                {
-                    rowIdx = firstRowIdx;
-                    break;
-                }
-                else if(target >= matrix[lastRowIdx][0])
-                {
-                    rowIdx = lastRowIdx;
-                    break;
-                }
-                else if(target > matrix[firstRowIdx][numCols-1])
-                {
-                    firstRowIdx++;
-                }
-                else
-                {
-                    lastRowIdx--;
-                }
-            }
 
             int leftIdx = 0;
-            int rightIdx = numCols-1;
+            int rightIdx = (numRows * numCols) - 1;
 
             while(leftIdx <= rightIdx)
             {
                 int midIdx = leftIdx + (rightIdx - leftIdx) / 2;
-                if(target == matrix[rowIdx][midIdx])
+                int rowIdx = midIdx / numCols;
+                int colIdx = midIdx % numCols;
+                
+                if(target == matrix[rowIdx][colIdx])
                 {
                     return true;
                 }
-                else if(target > matrix[rowIdx][midIdx])
+                else if(target > matrix[rowIdx][colIdx])
                 {
                     leftIdx = midIdx + 1;
                 }
