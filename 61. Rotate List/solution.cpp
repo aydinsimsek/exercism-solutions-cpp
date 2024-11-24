@@ -16,31 +16,25 @@ class Solution
         {
             if(head != NULL && k != 0)
             {
-                int count = 0;
-                ListNode *tmp = head;
-                while(tmp != NULL)
+                int count = 1;
+                ListNode *tail = head;
+                while(tail->next != NULL)
                 {
-                    tmp = tmp->next;
+                    tail = tail->next;
                     count++;
                 }
                 k %= count;
-                for(int i = 0; i < k; i++)
+                if(k == 0)
                 {
-                    int currVal;
-                    int prevVal = head->val;
-                    ListNode *currNode = head;
-                    while(currNode != NULL)
-                    {
-                        if(currNode != head)
-                        {
-                            currVal = currNode->val;
-                            currNode->val = prevVal;
-                            prevVal = currVal;
-                        }
-                        currNode = currNode->next;
-                    }
-                    head->val = prevVal;
+                    return head;
                 }
+                tail->next = head;
+                for(int i = 0; i < count-k; i++)
+                {
+                    tail = tail->next;
+                }
+                head = tail->next;
+                tail->next = NULL;
             }
             return head;
         }
