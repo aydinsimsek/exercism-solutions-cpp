@@ -12,13 +12,19 @@
 class Solution
 {
     private:
-        ListNode *findRightPrev(ListNode *head, int right)
+        ListNode *reverseSubList(ListNode *head, int count)
         {
-            for(int i = 1; i < right-1; i++)
+            ListNode *prevNode = NULL;
+            ListNode *currNode = head;
+            ListNode *nextNode = NULL;
+            for(int i = 0; i < count; i++)
             {
-                head = head->next;
+                nextNode = currNode->next;
+                currNode->next = prevNode;
+                prevNode = currNode;
+                currNode = nextNode;
             }
-            return head;
+            return prevNode; 
         }
 
     public:
@@ -26,26 +32,30 @@ class Solution
         {
             if(left != right)
             {
+                ListNode *prevNode = head;
                 ListNode *leftNode = head;
-                ListNode *rightNode = head;
+                ListNode *nextNode = head;
                 for(int i = 1; i < left; i++)
                 {
+                    if(i == left-1)
+                    {
+                        prevNode = leftNode;
+                    }
                     leftNode = leftNode->next;
                 }
-                for(int i = 1; i < right; i++)
+                for(int i = 1; i < right+1; i++)
                 {
-                    rightNode = rightNode->next;
+                    nextNode = nextNode->next;
                 }
-                while(left < right)
+                if(leftNode != head)
                 {
-                    int tmp = leftNode->val;
-                    leftNode->val = rightNode->val;
-                    rightNode->val = tmp;
-                    leftNode = leftNode->next;
-                    rightNode = findRightPrev(head, right);
-                    left++;
-                    right--;
+                    prevNode->next = reverseSubList(leftNode, right-left+1); 
                 }
+                else
+                {
+                    head = reverseSubList(leftNode, right-left+1);
+                }
+                leftNode->next = nextNode;
             }
             return head;
         }
